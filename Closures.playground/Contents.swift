@@ -10,16 +10,15 @@ func applySalesTaxForState(state: String)->(Double)->Double{
     
     func applyGeneric(amount: Double)->Double{ return amount * 0.05 }
     
-    if state == "TN"{
+    switch state{
+    case "TN":
         return applyTN
-    }
-    else if state == "DE"{
+    case "DE":
         return applyDE
-    }
-    else if state == "PA"{
+    case "PA":
         return applyPA
-    }
-    else {
+    
+    default:
         return applyGeneric
     }
 }
