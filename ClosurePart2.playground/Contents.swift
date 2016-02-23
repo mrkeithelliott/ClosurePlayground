@@ -62,10 +62,48 @@ PennyShaver.numberofPeopleStolenFrom
 
 
 
+// escaping closure example
+func updateServerCall(completion:(Bool, String?)->Void){
+    // do some work and then notify the caller that we are done by calling the completion handler
+    completion(true, "everything worked fine, bro")
+}
+
+// passing a closure expression
+updateServerCall { (status, message) -> Void in
+    if status {
+        print("success:\(message!)")
+    }
+}
+
+//create list to hold callback closures
+var callbackListenerList: [(Bool, String)->Void] = []
+
+func registerListenerCallbacks(callback: (Bool, String?)->Void){
+    //add new listeners to the list
+    // because we add this callback to a list that can be called later,
+    // we have to have an escaping closure
+    callbackListenerList.append(callback)
+}
+
+// add several callbacks to our list to be accessed later
+for cnt in 0...3{
+    registerListenerCallbacks({ (_, message) -> Void in
+        print("message-\(cnt): \(message!)")
+    })
+}
+
+//grab the first closure in the list and call it
+callbackListenerList.count
+let cb1 = callbackListenerList.first!
+cb1(true, "Yea Man, it's all good")
 
 
-
-
+func registerListenerCallbacksNonEscaping(@noescape callback: (Bool, String?)->Void){
+    //add new listeners to the list
+    // because we add this callback to a list that can be called later,
+    // we have to have an escaping closure
+    callbackListenerList.append(callback)
+}
 
 
 
