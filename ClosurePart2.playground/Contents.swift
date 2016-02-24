@@ -126,6 +126,7 @@ let formattedPerson = { ()->(String,String) in
 
 // notice the formattedPersion() has to be in {}, so that a closure will be created
 let formattedName = createFormattedGreeting({formattedPerson()})
+formattedName
 
 
 // converting this to autoclousure func by using the @autoclosure attribute
